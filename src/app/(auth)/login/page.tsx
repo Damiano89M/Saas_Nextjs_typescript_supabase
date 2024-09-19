@@ -1,31 +1,10 @@
 
-import { createClient } from "@/app/utils/supabase/server";
-import { FormButton } from "@/components/ui/formButton"
-import { redirect } from "next/navigation";
-import Link from "next/link"
+import { FormButton } from "@/components/ui/formButton";
+import Link from "next/link";
+import {loginAction} from '../action';
+
 const Login = () => {
 
-  const loginAction = async (formData: FormData) => {
-    "use server";
-    const supabaseClient = createClient();
-
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
-
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-      email,
-      password
-    })
-    
-    if (error) {
-      console.log(error.message);
-      
-    }
-
-    redirect("/")
-    
-  }
-  
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">

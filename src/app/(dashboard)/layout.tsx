@@ -1,6 +1,6 @@
 import Footer from "../components/layout/Footer";
 import Navbar from "../components/layout/Navbar";
-import { createClient } from "../utils/supabase/server";
+import { createClient } from "../../utils/supabase/server";
 
 export default async function DashboardLayout({
   children,
@@ -10,16 +10,20 @@ export default async function DashboardLayout({
 
   const supabaseClient = createClient();
 
-  const {data} = await supabaseClient.auth.getUser();
+  const { data } = await supabaseClient.auth.getUser();
 
 
   return (
 
-  <div>
-    <Navbar user={data.user} />
-      {children}
-    <Footer />
-  </div>
+    <>
+
+        <Navbar user={data.user} />
+        <div className="min-h-screen">
+          {children}
+        </div>
+        <Footer />
+
+    </>
 
   );
 }

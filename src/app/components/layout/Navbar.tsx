@@ -13,7 +13,7 @@ const Navbar = ({ user }: NavbarProps) => {
       <nav>
         <div className="m-auto max-w-7xl">
           <ul className="flex p-8  items-center">
-            <li className="flex-1 font-bold text-3xl">Logo</li>
+            <li className="flex-1 font-bold text-3xl"><Link href='/'>Logo</Link></li>
               {
               user ? <UserMenù user={user} />
               :

@@ -1,7 +1,7 @@
 "use server";
 
-import { createClient } from "../utils/supabase/server";
-
+import { createClient } from "../../utils/supabase/server";
+import { redirect } from "next/navigation";
 
 export type FormState = {
     message: string;
@@ -36,5 +36,25 @@ export const registerAction = async (
 
     return {message:"Success, check your email" }
     
+}
+
+export const loginAction = async (formData: FormData) => {
+    "use server";
+    const supabaseClient = createClient();
+
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    })
+    
+    if (error) {
+      console.log(error.message);
+      
+    }
+
+    redirect("/")
     
   }

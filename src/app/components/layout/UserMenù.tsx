@@ -10,14 +10,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { User } from "@supabase/supabase-js";
 import Image from "next/image";
-import { createClient } from "../../../../supabase/client";
+import { createClient } from "../../../utils/supabase/client";
 import { useRouter } from "next/navigation";
+import Link from 'next/link';
 
 interface UserMenuProps{
     user: User
 }
 
-const UserMenù = ({user}: UserMenuProps) => {
+const UserMenu = ({user}: UserMenuProps) => {
     const router = useRouter();
 
     const logout = async () => {
@@ -44,11 +45,12 @@ const UserMenù = ({user}: UserMenuProps) => {
                 <DropdownMenuContent>
                     <DropdownMenuLabel>{user.email}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
+                    <DropdownMenuItem><Link href='courses'>Corsi</Link></DropdownMenuItem>
+                    <DropdownMenuItem onClick={logout} className=" cursor-pointer">Logout</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
         </>
     )
 }
 
-export default UserMenù
+export default UserMenu
