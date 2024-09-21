@@ -1,0 +1,14 @@
+1. L'utente clicca su "Get access" in pricing/courses, e viene inviato un modulo con l'ID del prezzo.
+L'utente visualizza una pagina di pricing o dei corsi, dove c'è un pulsante "Get access", Il modulo contiene un input nascosto con il priceId, che rappresenta l'ID del prezzo per l'abbonamento su Stripe.  Quando l'utente clicca sul pulsante, il modulo viene inviato al server, passando l'ID del prezzo in modo nascosto.
+
+2. La funzione handleSubscribe crea una sessione di checkout di Stripe e reindirizza l'utente alla pagina di pagamento.
+Quando l'utente invia il modulo, la funzione handleSubscribe viene attivata. Questa funzione utilizza l'ID del prezzo ricevuto per creare una sessione di checkout su Stripe, con i dettagli dell'abbonamento. Una volta creata la sessione, l'utente viene reindirizzato automaticamente alla pagina di pagamento di Stripe, dove può inserire i dati di pagamento e completare l'acquisto.
+
+3. L'utente completa il pagamento su Stripe.
+L'utente fornisce i dati di pagamento sulla pagina di Stripe e conferma la transazione. Se il pagamento ha successo, Stripe reindirizza l'utente a una pagina di conferma sul sito, specificando che l'acquisto è stato completato.
+
+4. Stripe invia un webhook al server che aggiorna lo stato dell'abbonamento nel database Supabase.
+Dopo che l'utente ha completato il pagamento, Stripe invia un webhook al server del sito, notificando l'avvenuta transazione. Il server riceve questo webhook e aggiorna lo stato dell'utente nel database Supabase, contrassegnandolo come attivo nel sistema di abbonamenti. Se l'utente aveva già un record, viene aggiornato; altrimenti, viene creato un nuovo record.
+
+5. Quando l'utente torna sul sito, lo stato dell'abbonamento viene verificato e viene determinato se può accedere ai contenuti premium.
+Quando l'utente torna sul sito, viene verificato lo stato del suo abbonamento. Il server interroga il database Supabase per controllare se l'utente ha un abbonamento attivo. Se l'abbonamento è attivo, l'utente può accedere ai contenuti premium (come lezioni o corsi); altrimenti, gli verrà mostrato un messaggio per sottoscrivere l'abbonamento.

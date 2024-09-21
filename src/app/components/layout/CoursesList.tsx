@@ -24,6 +24,7 @@ const getEmbedUrl = (url: string | null) => {
 };
 
 const CoursesList = ({ lessons }: CoursesListProps) => {
+
   return (
     <Accordion type="single" collapsible>
       {lessons.map((lesson, index) => (
